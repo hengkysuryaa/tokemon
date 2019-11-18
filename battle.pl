@@ -11,6 +11,7 @@
 :- dynamic(enemyAttack/1).
 
 :- dynamic(isBattle/1).
+:- dynamic(isRun/1).
 
 /* ntar abis selesai battle atau jika pokemon kita mati harus di reset */
 resetMyVar :-
@@ -43,16 +44,19 @@ pick(X) :-
    
 
 run :- 
+	isRun(1),
 	random(1,5,X),random(1,5,Y),
 	(
 		(
 			X =:= Y,
 			write('You failed to run! Choose your Tokemon!'),nl,nl,
+			retract(isRun(1)), asserta(isRun(0)),
 			fight
 
 		);
 		(
-			write('You sucessfully escaped the Tokemon!'),nl
+			write('You sucessfully escaped the Tokemon!'),nl,
+			retract(isRun(1)), asserta(isRun(0))
 		)
 	),!.
 
@@ -60,7 +64,7 @@ fight :-
     statusToke,
 	retract(isBattle(0)),asserta(isBattle(1)),
 	player(X,Y),musuh(Nama,_,X,Y,_),
-	asserta(enemyName(Nama)),!.
+	A = Nama, asserta(enemyName(A)),!.
 
 /* Buat nama sama tipe tokemon yang dilawan belum */
 

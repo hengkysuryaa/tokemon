@@ -88,6 +88,7 @@ initMusuh(N) :-
 checkPosition :- 
 	player(X,Y), musuh(_,_,A,B,_), X =:= A, Y =:= B, nl,
 	write('A wild Tokemon appears!'),nl,
-	write('Fight or Run?'),nl,!.
+	write('Fight or Run?'),nl,
+	retract(isRun(0)),asserta(isRun(1)),!.
 
 

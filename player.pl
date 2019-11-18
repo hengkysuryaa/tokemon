@@ -11,7 +11,7 @@
 
 :- dynamic(startGame/1). /* bernilai 1 kalau game telah start */
 :- dynamic(isGym/1). /* bernilai 0 kalo blm pernah ke gym, 1 kalau sudah di gym dan blm pernah pake heal/0, -1 kalo sdh pernah pakai heal */
-:- dynamic(isBattle/1).
+
 
 quit :-
 	\+startGame(_),
@@ -54,6 +54,7 @@ awal :-
 	T is 15,
 	asserta(startGame(1)),
 	asserta(isBattle(0)),
+	asserta(isRun(0)),
 	random(1,L,X),
 	random(1,T,Y),
 	initEnemy,
