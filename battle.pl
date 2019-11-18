@@ -64,6 +64,7 @@ run :-
 fight :-
     statusToke,
 	retract(isRun(1)), asserta(isRun(0)),
+	retract(isBattle(0)), asserta(isBattle(1)),
 	player(X,Y),musuh(Nama,_,X,Y,_),
 	A = Nama, asserta(enemyName(A)),!.
 
@@ -177,13 +178,15 @@ updateHealth(X) :-
 
 menang :- 
 	asserta(isWin(1)),
-	write('Kamu menang dlm game ini'),!.
+	write('Kamu menang dlm game ini'),
+	quit,!.
 
 kalah :-
 	(
 		invCount(X), X =:= 0,
 		asserta(isWin(0)),
-		write('Kamu kalah dlm game ini')
+		write('Kamu kalah dlm game ini'),
+		quit
 	),!.
 
 kalah :- !.
