@@ -34,11 +34,11 @@ pick(X) :-
     write('I choose you, '),
     write(X),
     write('!'),nl,nl,
-/*  kalo mau ngetes pake musuh sementara pake yg bawah  jgn lupa !. yg atas didelete 
-	asserta(enemyName(slowbro)),
-	asserta(enemyAttack(100)),
-	asserta(enemyType(water)),
-    asserta(enemyHealth(150)) */
+	
+	enemyName(Musuh),
+	nattack(Musuh,P),asserta(enemyAttack(P)),
+	tipe(Musuh,Q),asserta(enemyType(Q)),
+    health(Musuh,R),asserta(enemyHealth(R)),
 	show,!.
    
 
@@ -58,7 +58,9 @@ run :-
 
 fight :-
     statusToke,
-	retract(isBattle(0)),asserta(isBattle(1)),!.
+	retract(isBattle(0)),asserta(isBattle(1)),
+	player(X,Y),musuh(Nama,_,X,Y,_),
+	asserta(enemyName(Nama)),!.
 
 /* Buat nama sama tipe tokemon yang dilawan belum */
 
