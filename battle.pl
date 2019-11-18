@@ -26,6 +26,8 @@ resetAllVar :-
 pick(X) :-
 	\+inventori(X,_),write('You dont have '),write(X),!.
 
+pick(X) :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
+
 pick(X) :- 
     retract(useSattack(-1)),asserta(useSattack(0)),
     inventori(X,A),asserta(myName(X)),asserta(myHealth(A)),
@@ -40,7 +42,7 @@ pick(X) :-
 	nattack(Musuh,P),asserta(enemyAttack(P)),
 	tipe(Musuh,Q),asserta(enemyType(Q)),
     health(Musuh,R),asserta(enemyHealth(R)),
-	show,!.
+	show,optAttack,!.
 
 run :- isBattle(1),isFight(1),write('Kamu tidak bisa lari'),!.
 
@@ -89,6 +91,7 @@ myAttack :-
 			(
 				J=<0,
 				retract(enemyHealth(_)),asserta(enemyHealth(0)),
+				retract(isBattle(1)),asserta(isBattle(0)),
 				show,
 				write('Kamu menang dalam battle ini'),
 				menangBattle
@@ -107,15 +110,18 @@ enemyAttack:-
 			(
 				J=<0,
 				retract(myHealth(_)),asserta(myHealth(0)),
+				retract(isBattle(1)),asserta(isBattle(0)),
 				show,
 				kalahBattle
 			);
 			(
-				show
+				show,optAttack
 			)
 		),!. 
 
 enemyAttack :- !.
+
+attack :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
 
 attack :-
 	\+isBattle(1),
@@ -126,6 +132,8 @@ attack :-
 	myHealth(X),enemyHealth(Y),X>0,Y>0,
 	myAttack,
 	enemyAttack,!.
+
+sattack :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
 
 sattack :-
 	enemyHealth(Z),Z>0,useSattack(1),write('Kamu udah pakai special attack!'),!.
@@ -143,12 +151,13 @@ sattack :-
 		(
 			J=<0,
 			retract(enemyHealth(_)),asserta(enemyHealth(0)),
+			retract(isBattle(1)),asserta(isBattle(0)),
 			show,
 			write('Kamu menang dalam battle ini'),
 			menangBattle
 		);
 		(
-			show
+			show,optAttack
 		)
 	),!. 
 
