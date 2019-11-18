@@ -3,7 +3,6 @@
 :- dynamic(player/2). /* player(X,Y) */
 :- dynamic(inventori/2). /* inventori(NamaTokemon,Health) */
 :- dynamic(musuh/5). /* musuh(NamaLegend,Health,X,Y,legend/normal) */
-:- dynamic(tokemon/4). /* tokemon(NamaTokemon,Health,X,Y) */
 
 :- dynamic(maxInv/1).
 :- dynamic(invCount/1).
@@ -62,9 +61,7 @@ awal :-
 	asserta(useSattack(-1)), /* tiap pake diubah jadi 1 , kalo ganti tokemon pas battle reset ke 0 lagi */
 	asserta(maxInv(6)), asserta(invCount(1)),
     health(pikacrot,A),asserta(inventori(pikacrot,A)),
-/*	health(duarmon,D),asserta(tokemon(duarmon,D,8,8)), */
 	asserta(nbLegend(2)),!.
-	/* database tokemon liar blm health(duarmon,D),asserta(tokemon(duarmon,D,_,_)) , dst */
 
 
 

@@ -99,6 +99,9 @@ enemyAttack:-
 			)
 		),!. 
 
+enemyAttack :-
+	enemyHealth(Z),Z=<0,fail.
+
 attack :-
 	myHealth(X),enemyHealth(Y),X>0,Y>0,
 	myAttack,
@@ -156,4 +159,36 @@ updateHealth(X) :-
 	A>0,
 	retract(inventori(X,_)),
 	assertz(inventori(X,A)),!.
+
+menang :- 
+	retract(isWin(0)),asserta(isWin(1)),
+	write('Kamu menang dlm game ini'),!.
+
+kalah :-
+	retract(isLose(0)),asserta(isLose(1)),
+	write('Kamu kalah dlm game ini'),!.
+
+kalahBattle :-
+
+	(
+		invCount(X), X =:= 0,
+		kalah
+	);
+	(
+		myName(X),
+		drop(X),
+		resetMyVar
+	)
+	,!.
+
+kalahBattle :-
+
+	(
+		nbLegend(X), X =:= 0,
+		menang
+	);
+	(
+		isBattle(0) /* tapi kalo dia pick jadi gabisa */
+	)
+	,!.
 
