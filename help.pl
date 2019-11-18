@@ -1,9 +1,9 @@
-help :-
-	\+startGame(_),
-	write('start/0 dulu bosque'),!.
-
 help:-
-	(tab(4),write('Command-command yang ada:'),nl,
+	\+startGame(_),
+	write('Belom distart pak'),nl,!.
+	
+help:-
+	tab(4),write('Command-command yang ada:'),nl,
 	tab(8),write('start.            :- Mulai permainan bro!'),nl,
 	tab(8),write('help.             :- Liat command-command yang ada'),nl,
 	tab(8),write('quit.             :- Keluar dari permainan'),nl,
@@ -16,4 +16,4 @@ help:-
 	tab(4),write('Keterangan:'),nl,
 	tab(8),write('X = Tembok'),nl,
 	tab(8),write('P = Pemain'),nl,
-	tab(8),write('G = Gym'),nl).
+	tab(8),write('G = Gym'),nl.

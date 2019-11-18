@@ -11,14 +11,14 @@
 :- dynamic(enemyAttack/1).
 
 :- dynamic(isBattle/1).
-:- dynamic(isRun/1).
+:- dynamic(isFight/1).
 
 /* ntar abis selesai battle atau jika pokemon kita mati harus di reset */
 resetMyVar :-
     retract(myName(_)),retract(myHealth(_)), retract(myType(_)),retract(myAttack(_)),retract(mySAttack(_)),!.
 
 resetEnemyVar :-
-	 retract(enemyName(_)),retract(enemyHealth(_)), retract(myType(_)),retract(enemyAttack(_)),!.
+	retract(enemyName(_)),retract(enemyHealth(_)), retract(myType(_)),retract(enemyAttack(_)),!.
 
 resetAllVar :-
 	resetMyVar, resetEnemyVar,!.
@@ -42,37 +42,42 @@ pick(X) :-
     health(Musuh,R),asserta(enemyHealth(R)),
 	show,!.
 
-run :-
-	\+isRun(1), write('Kamu sudah lari dari tokemon itu atau sedang melawan tokemon itu'),!.
+run :- isBattle(1),isFight(1),write('Kamu tidak bisa lari'),!.
+
+run :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
 
 run :- 
-	isRun(1),
-	random(1,5,X),random(1,5,Y),
+	isBattle(1),isFight(0),
+	random(1,10,X),random(1,2,Y),
 	(
 		(
-			X =:= Y,
+			X \== Y,
 			write('You failed to run! Choose your Tokemon!'),nl,nl,
+			retract(isFight(0)),asserta(isFight(1)),
 			fight
 
 		);
 		(
-			write('You sucessfully escaped the Tokemon!'),nl,
-			retract(isRun(1)), asserta(isRun(0))
+			retract(isBattle(1)),asserta(isBattle(0)),
+			write('You sucessfully escaped the Tokemon!'),nl
 		)
 	),!.
 
+fight :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
+
 fight :-
-    statusToke,
-	retract(isRun(1)), asserta(isRun(0)),
-	retract(isBattle(0)), asserta(isBattle(1)),
+	retract(isFight(0)),asserta(isFight(1)),
+	statusToke,
 	player(X,Y),musuh(Nama,_,X,Y,_),
-	A = Nama, asserta(enemyName(A)),!.
+	A = Nama, asserta(enemyName(A)),
+	write('Pilih tokemonmu! (pick(nama tokemon).)'),!.
 
 /* Buat nama sama tipe tokemon yang dilawan belum */
 
 optAttack :-
-    write('Normal  : '),myAttack(A),write(A),nl,
-    write('Special : '),mySAttack(B),write(B),!.
+	write('Pilih serangan tokemonmu!'),nl,
+    write('Normal  : '),myAttack(A),write(A),write(' -> '),modifier(X,Y),myAttack(C),write(C),write(' (attack.)'),nl,
+	write('Special : '),mySAttack(B),write(B),write(' -> '),modifierS(Z),mySAttack(D),write(D),write(' (sattack.)'),!.
     
 /* nilai myattack dan enemyattack pake modifier dl */
 myAttack :-

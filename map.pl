@@ -22,7 +22,7 @@ printPixel(X,Y) :- borderAtas(X,Y) , ! , write('XX').
 printPixel(X,Y) :- borderBawah(X,Y) , ! , write('XX').
 printPixel(X,Y) :- gymCoordinate(X,Y), ! , write(' G').  
 printPixel(X,Y) :- playerCoordinate(X,Y), ! , write(' P').
-printPixel(X,Y) :- enemyCoordinate(X,Y), ! , write(' E').
+/* printPixel(X,Y) :- enemyCoordinate(X,Y), ! , write(' E'). */
 printPixel(_,_) :- write(' -').
 
 
@@ -85,20 +85,17 @@ initMusuh(N) :-
 	listLength(ListEnemy,Len),
 	random(0,Len,Number),
 	getByIndex(ListEnemy, Number, B),
-	write(B),nl,
 	health(B,H), 
 	jenis(B,T),
 	asserta(musuh(B,H,X,Y,T)),
-	write(X),write(' '),write(Y),write('   '),nl,
-	write(N),
 	N1 is N-1,
 	initMusuh(N1), !.
 
 
 checkPosition :- 
 	player(X,Y), musuh(_,_,A,B,_), X =:= A, Y =:= B, nl,
+	retract(isBattle(0)),asserta(isBattle(1)),
 	write('A wild Tokemon appears!'),nl,
-	write('Fight or Run?'),nl,
-	retract(isRun(0)),asserta(isRun(1)),!.
+	write('Fight or Run?'),nl,!.
 
 
