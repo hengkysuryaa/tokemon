@@ -1,0 +1,82 @@
+Anggota Kelompok :
+Aufa Fadhlurohman          13518009
+Hengky Surya Andika        13518048
+Radhinansyah Hemsa Ghaida  13518087
+Evan Pradanika             13518126
+
+GAMBARAN UMUM
+
+ALUR PERMAINAN
+
+Tokemon adalah sebuah permainan survival role-playing.
+Di awal permainan, trainer hanya memiliki satu Tokemon normal.
+Trainer hanya bisa memiliki maksimal sebanyak enam Tokemon.
+Jika sudah memilliki enam Tokemon, trainer dapat membuang Tokemon yang dimilikinya untuk menyimpan Tokemon yang baru.
+
+Pemain dapat bergerak sebanyak 1 sel ke utara, selatan, timur, atau barat dari posisi pemain di map dan pemain tidak boleh berada di posisi X (pagar).
+Saat berpindah, pemain dapat bertemu Tokemon dengan peluang menggunakan random generator.
+Saat bertemu Tokemon, Tokemon Trainer dapat melarikan diri dari battle yang ada kemungkinan gagalnya atau battle dengan Tokemon yang ditemuinya.
+Ukuran map permainan sebesar 10 x 10.
+
+Saat battle, trainer harus memilih salah satu Tokemonnya untuk melawan Tokemon yang ditemuinya.
+Battle akan dilakukan secara bergantian dan trainer dapat menggunakan skill Tokemon atau menggunakan attack biasa menggunakan Tokemonnya.
+Sementara untuk Tokemon lawan, mereka hanya dapat menggunakan attack biasa.
+Jika trainer menang, trainer dapat memilih untuk menyimpan Tokemon yang telah dikalahkan atau tidak.
+Jika trainer kalah, Tokemon yang digunakan trainer dihapus dari inventaris trainer dan pemain dapat memilih Tokemon lain yang ada di inventarisnya (sampai Tokemon habis/fail state).
+Trainer dinyatakan memenangi permainan apabila trainer telah mengalahkan semua legendary Tokemon.
+
+Pokemon buat defend (health besar, damage kecil) sama attack (health kecil, attack besar)
+
+Ada beberapa pengaruh tipe Tokemon terhadap damage yang diberikan dan diterima terhadap tipe Tokemon yang lain.
+Damage yang diberikan oleh Tokemon tipe fire akan bertambah sebesar setengah kali lipat dari attacknya jika melawan tipe leaves, sedangkan damage yang diberikan oleh Tokemon tipe leaves akan berkurang sebesar setengah kali lipat dari attacknya jika melawan tipe fire.
+Damage yang diberikan oleh Tokemon tipe leaves akan bertambah sebesar setengah kali lipat dari attacknya jika melawan tipe water, sedangkan damage yang diberikan oleh Tokemon tipe water akan berkurang sebesar setengah kali lipat dari attacknya jika melawan tipe leaves.
+Damage yang diberikan oleh Tokemon tipe water akan bertambah sebesar setengah kali lipat dari attacknya jika melawan tipe fire, sedangkan damage yang diberikan oleh Tokemon tipe fire akan berkurang sebesar setengah kali lipat dari attacknya jika melawan tipe water. 
+Damage yang diberikan oleh Tokemon tipe light akan bertambah sebesar setengah kali lipat dari attacknya jika melawan tipe thunder, sedangkan damage yang diberikan oleh Tokemon tipe thunder akan berkurang sebesar setengah kali lipat dari attacknya jika melawan tipe light.
+Damage yang diberikan oleh Tokemon tipe blast akan bertambah sebesar setengah kali lipat dari attacknya jika melawan tipe light, sedangkan damage yang diberikan oleh Tokemon tipe light akan berkurang sebesar setengah kali lipat dari attacknya jika melawan tipe blast.
+Damage yang diberikan oleh Tokemon tipe thunder akan bertambah sebesar setengah kali lipat dari attacknya jika melawan tipe blast, sedangkan damage yang diberikan oleh Tokemon tipe blast akan berkurang sebesar setengah kali lipat dari attacknya jika melawan tipe thunder.
+
+Terdapat sebuah dynamic predicate yang digunakan untuk memuat atribut dari tiap Tokemon yang dapat digunakan oleh pemain.
+Dynamic predicate ini berfungsi untuk menyimpan Player, Tipe, Health, serta posisi Tokemon.
+Untuk menyimpan data Tokemon yang dimiliki seorang player digunakan list.
+
+
+NAMA TOKEMON 
+
+Normal :
+Pikacrot (Water)
+Slowbro (Leaf)
+Charmaster (Fire)
+Squirtlel (Water)
+Togemon (Leaf)
+Elpijimon (Fire)
+Anumon (Water)
+Tokedmon (Leaf)
+Duarmon (Fire)
+Bebekmon (Water)
+
+Legendary :
+Apimon (Fire)
+Airmon (Water)
+
+Bonus :
+Terangmon (Light)
+Gelapmon (Light)
+Chidorimon (Thunder)
+Gunturumon (Thunder)
+Ekusupuromon (Blast)
+Megumon (Blast)
+
+CERITA PERMAINAN
+
+HALO POKEMON TRAINER!
+SENANG BERTEMU DENGAN ANDA.
+SELAMAT DATANG DI DUNIA MAYA!
+DI DUNIA MAYA INI KAMU AKAN BERTEMU DENGAN BANYAK TOKEMON!
+UNTUK BEBERAPA ORANG, TOKEMON ADALAH PELIHARAAN MEREKA, NAMUN POKEMON TRAINER SEPERTI KAMULAH YANG DIBUTUHKAN UNTUK MENYELAMATKAN DUNIA!
+BANTULAH KAMI UNTUK MENGALAHKAN AIRMON DAN APIMON.
+MEREKA ADALAH TOKEMON JAHAT YANG AKAN MENGHANCURKAN DUNIA MAYA.
+HANYA KAMULAH SATU - SATUNYA POKEMON TRAINER YANG DAPAT MENYELAMATKAN DUNIA INI!
+KAMI BUTUH BANTUANMU!
+NAMUN, AKU TAU KAMU JUGA MEMBUTUHKAN KU UNTUK BERKELANA DI DUNIA MAYA INI.
+AKU, PROFESOR RICHARD AKAN MEMBERI SATU BEKAL!
+GUNAKAN INI SEBAIK MUNGKIN!
