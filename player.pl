@@ -19,6 +19,7 @@ quit :-
 	
 quit :- 
 	/* literally retract semua dynamic */
+	retract(startGame(_)),
 	retract(maxInv(_)),
 	retract(invCount(_)),
 	retract(nbLegend(_)),
@@ -28,8 +29,7 @@ quit :-
 	retract(mapXLength(_)),
 	retract(mapYLength(_)),
 	retract(tokenemy(_)),
-	retractMusuh,
-	retract(startGame(_)),!.
+	retractMusuh,!.
 	/* resetAllVar,!. */
 	/* retractTokemon, retractMusuh, retractInventori, retractPlayer,!. implementasi nanti kalo udh fix */
 quit :- !.
