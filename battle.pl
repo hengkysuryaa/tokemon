@@ -10,6 +10,8 @@
 :- dynamic(enemyType/1).
 :- dynamic(enemyAttack/1).
 
+:- dynamic(isBattle/1).
+
 /* ntar abis selesai battle atau jika pokemon kita mati harus di reset */
 resetMyVar :-
     retract(myName(_)),retract(myHealth(_)), retract(myType(_)),retract(myAttack(_)),retract(mySAttack(_)),!.
@@ -55,7 +57,8 @@ run :-
 	),!.
 
 fight :-
-    statusToke,!.
+    statusToke,
+	retract(isBattle(0)),asserta(isBattle(1)),!.
 
 /* Buat nama sama tipe tokemon yang dilawan belum */
 
@@ -75,7 +78,7 @@ myAttack :-
 				retract(enemyHealth(_)),asserta(enemyHealth(0)),
 				show,
 				write('Kamu menang dalam battle ini'),
-				updateHealth(X)
+				menangBattle
 			);
 			(
 				show
@@ -92,17 +95,21 @@ enemyAttack:-
 				J=<0,
 				retract(myHealth(_)),asserta(myHealth(0)),
 				show,
-				write('Kamu kalah dalam battle ini')
+				kalahBattle
 			);
 			(
 				show
 			)
 		),!. 
 
-enemyAttack :-
-	enemyHealth(Z),Z=<0,fail.
+enemyAttack :- !.
 
 attack :-
+	\+isBattle(1),
+	write('Kamu tidak di battle!'),!.
+
+attack :-
+	isBattle(1),
 	myHealth(X),enemyHealth(Y),X>0,Y>0,
 	myAttack,
 	enemyAttack,!.
@@ -161,12 +168,14 @@ updateHealth(X) :-
 	assertz(inventori(X,A)),!.
 
 menang :- 
-	retract(isWin(0)),asserta(isWin(1)),
+	asserta(isWin(1)),
 	write('Kamu menang dlm game ini'),!.
 
 kalah :-
-	retract(isLose(0)),asserta(isLose(1)),
-	write('Kamu kalah dlm game ini'),!.
+	(
+		asserta(isWin(0)),
+		write('Kamu kalah dlm game ini')
+	),!.
 
 kalahBattle :-
 
@@ -177,18 +186,26 @@ kalahBattle :-
 	(
 		myName(X),
 		drop(X),
+		invCount(A), A > 0,
+		write('Kamu kalah dalam battle ini'),nl,nl,
+		/* isBattle masih 1 shg hanya bisa pick */
+		write('Kamu harus memilih pokemon lain di inventorimu untuk melawan musuh!'),
 		resetMyVar
 	)
 	,!.
 
-kalahBattle :-
+kalahBattle :- !.
+
+menangBattle :- 
 
 	(
 		nbLegend(X), X =:= 0,
 		menang
 	);
 	(
-		isBattle(0) /* tapi kalo dia pick jadi gabisa */
-	)
-	,!.
+		myName(Y), 
+		updateHealth(Y)
+	),!.
+
+menangBattle :- !.
 
