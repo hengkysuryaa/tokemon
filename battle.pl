@@ -41,7 +41,9 @@ pick(X) :-
 	tipe(Musuh,Q),asserta(enemyType(Q)),
     health(Musuh,R),asserta(enemyHealth(R)),
 	show,!.
-   
+
+run :-
+	\+isRun(1), write('Kamu sudah lari dari tokemon itu'),!.
 
 run :- 
 	isRun(1),

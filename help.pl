@@ -1,3 +1,7 @@
+help :-
+	\+startGame(_),
+	write('start/0 dulu bosque'),!.
+
 help:-
 	(tab(4),write('Command-command yang ada:'),nl,
 	tab(8),write('start.            :- Mulai permainan bro!'),nl,
