@@ -27,7 +27,7 @@ pick(X) :-
 	\+inventori(X,_),write('You dont have '),write(X),!.
 
 pick(X) :- 
-    retract(useSattack(_)),asserta(useSattack(0)),
+    retract(useSattack(-1)),asserta(useSattack(0)),
     inventori(X,A),asserta(myName(X)),asserta(myHealth(A)),
     nattack(X,B),asserta(myAttack(B)), 
     sattack(X,C),asserta(mySAttack(C)),
@@ -190,6 +190,7 @@ kalahBattle :-
 
 	(
 		invCount(X), X =:= 0,
+		retract(useSattack(_)),asserta(useSattack(-1)),
 		kalah
 	);
 	(
@@ -199,6 +200,7 @@ kalahBattle :-
 		write('Kamu kalah dalam battle ini'),nl,nl,
 		/* isBattle masih 1 shg hanya bisa pick */
 		write('Kamu harus memilih pokemon lain di inventorimu untuk melawan musuh!'),
+		retract(useSattack(_)),asserta(useSattack(-1)),
 		resetMyVar
 	)
 	,!.
@@ -209,9 +211,11 @@ menangBattle :-
 
 	(
 		nbLegend(X), X =:= 0,
+		retract(useSattack(_)),asserta(useSattack(-1)),
 		menang
 	);
 	(
+		retract(useSattack(_)),asserta(useSattack(-1)),
 		myName(Y), 
 		updateHealth(Y)
 	),!.
