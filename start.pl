@@ -88,7 +88,8 @@ capture :-
 	enemyName(X),
 	retractCap(X),
 	health(X,H),asserta(inventori(X,H)),
-	countInvCap(X),!.
+	countInvCap(X),
+	menangBattle,!.
 	
 /*	retract(tokemon(X,_,_,_)),!. */
 
@@ -102,7 +103,8 @@ retractCap(X) :-
 drop(X) :-
 	retract(inventori(X,_)),
 	countInvDrop(X),
-	assertDrop(X),!.
+	assertDrop(X),
+	kalah,!.
 /*	assertz(tokemon(X,_,_,_)),!. */
 
 assertDrop(X) :-

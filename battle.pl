@@ -131,7 +131,8 @@ sattack :-
 			J=<0,
 			retract(enemyHealth(_)),asserta(enemyHealth(0)),
 			show,
-			write('Kamu menang dalam battle ini')
+			write('Kamu menang dalam battle ini'),
+			menangBattle
 		);
 		(
 			show
