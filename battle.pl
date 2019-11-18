@@ -1,3 +1,4 @@
+:- include('modifier.pl').
 :- dynamic(myName/1).
 :- dynamic(myHealth/1).
 :- dynamic(myType/1).
@@ -64,7 +65,7 @@ optAttack :-
     
 /* nilai myattack dan enemyattack pake modifier dl */
 myAttack :-
-    myHealth(Z),Z>0,myName(X),write(X),write(' dealt '),modifier(X),myAttack(A),write(A),write(' damage to '),enemyName(Y),write(Y),nl,nl,
+    myHealth(Z),Z>0,myName(X),enemyName(Y),write(X),write(' dealt '),modifier(X,Y),myAttack(A),write(A),write(' damage to '),write(Y),nl,nl,
 	enemyHealth(B),C is B-A,retract(enemyHealth(B)),asserta(enemyHealth(C)),
 	enemyHealth(J),
 		(
@@ -109,9 +110,9 @@ sattack :-
 sattack :-
 	enemyHealth(Z),Z>0,
 	retract(useSattack(0)),asserta(useSattack(1)),
-    myName(X),write(X),
+    myName(X),enemyName(Y),modifierS(X),write(X),
     write(' uses Special Attack!'),
-    write(' It dealt '),mySAttack(A),write(A),write(' damage to '),enemyName(Y),write(Y),nl,nl,
+    write(' It dealt '),mySAttack(A),write(A),write(' damage to '),write(Y),nl,nl,
 	enemyHealth(B),C is B-A,retract(enemyHealth(B)),asserta(enemyHealth(C)),
 	enemyHealth(J),
 	(
@@ -155,14 +156,4 @@ updateHealth(X) :-
 	A>0,
 	retract(inventori(X,_)),
 	assertz(inventori(X,A)),!.
-
-modifier(X) :-
-	nattack(X,Z),
-	Z1 is Z*1.5,
-	Z2 is Z*0.5,
-	(
-		myType(A), A == water, enemyType(B), B == fire,
-		retract(myAttack(_)),asserta(myAttack(Z1))
-
-	),!.
 

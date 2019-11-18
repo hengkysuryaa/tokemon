@@ -69,9 +69,9 @@ statusToke :-
 	printStatusN(List1),!.
 
 statusMusuh :- 
-	findall(Y,musuh(Y,_,_,_),List2),
+	findall(A,musuh(A,_,_,_,legend),List2),
 	write('Musuhmu: '),nl,
-	printStatusL(List2),!.
+	printStatusL(List2).
 
 status :-
 	\+startGame(_),
@@ -82,9 +82,10 @@ status :-
 	statusMusuh,!.
 
 /* dipake setelah menang battle */
-capture(_) :- 
+capture :- 
 	invCount(6),write('Inventorimu penuh! drop/0 untuk melepas tokemonmu'),nl,!.
-capture(X) :- 
+capture :- 
+	enemyName(X),
 	retractCap(X),
 	health(X,H),asserta(inventori(X,H)),
 	countInvCap(X),!.
@@ -92,14 +93,9 @@ capture(X) :-
 /*	retract(tokemon(X,_,_,_)),!. */
 
 retractCap(X) :-
-	(
-		tokemon(X,_,_,_),
-		retract(tokemon(X,_,_,_))
-
-	);
 	(	
-		musuh(X,_,_,_),
-		retract(musuh(X,_,_,_))
+		musuh(X,_,_,_,_),
+		retract(musuh(X,_,_,_,_))
 	),!.
 
 /* dipake setelah kalah battle atau pengen buang tokemon */
@@ -110,16 +106,11 @@ drop(X) :-
 /*	assertz(tokemon(X,_,_,_)),!. */
 
 assertDrop(X) :-
-	(
-		\+legend(X),
-		health(X,H1),
-		assertz(tokemon(X,H1,_,_))
 
-	);
 	(	
-		legend(X),
+		jenis(X,A),
 		health(X,H2),
-		assertz(musuh(X,H2,_,_))
+		assertz(musuh(X,H2,_,_,A))
 	),!.
 
 /* asusmsi di gym harus pake heal */

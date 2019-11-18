@@ -2,7 +2,7 @@
 
 :- dynamic(player/2). /* player(X,Y) */
 :- dynamic(inventori/2). /* inventori(NamaTokemon,Health) */
-:- dynamic(musuh/4). /* musuh(NamaLegend,Health,X,Y) */
+:- dynamic(musuh/5). /* musuh(NamaLegend,Health,X,Y,legend/normal) */
 :- dynamic(tokemon/4). /* tokemon(NamaTokemon,Health,X,Y) */
 
 :- dynamic(maxInv/1).
@@ -22,6 +22,12 @@ quit :-
 	retract(maxInv(_)),
 	retract(invCount(_)),
 	retract(nbLegend(_)),
+	retract(isGym(_)),
+	retract(useSattack(_)),
+	resetAllVar,
+	retract(mapXLength(_)),
+	retract(mapYLength(_)),
+	retract(tokenemy(_)),
 	retract(startGame(_)),!.
 	/* retractTokemon, retractMusuh, retractInventori, retractPlayer,!. implementasi nanti kalo udh fix */
 
@@ -31,20 +37,31 @@ retractInventori :-
 retractInventori :-
 	retract(inventori(_,_)), retractInventori,!.
 
+retractMusuh :-
+	\+musuh(_,_,_,_,_),!.
+
+retractMusuh :-
+	retract(musuh(_,_,_,_,_)), retractMusuh,!.
+
+retractPlayer :-
+	\+player(_,_),!.
+
+retractPlayer :-
+	retract(player(_,_)), retractPlayer,!.
+
 awal :-
 	L is 15,
 	T is 15,
 	asserta(startGame(1)),
 	random(1,L,X),
 	random(1,T,Y),
+	initEnemy,
 	initMusuh(10),
 	asserta(player(X,Y)),
 	asserta(isGym(0)),
 	asserta(useSattack(-1)), /* tiap pake diubah jadi 1 , kalo ganti tokemon pas battle reset ke 0 lagi */
 	asserta(maxInv(6)), asserta(invCount(1)),
     health(pikacrot,A),asserta(inventori(pikacrot,A)),
-    health(apimon,B),asserta(musuh(apimon,B,5,5)),
-    health(airmon,C),assertz(musuh(airmon,C,7,7)),
 /*	health(duarmon,D),asserta(tokemon(duarmon,D,8,8)), */
 	asserta(nbLegend(2)),!.
 	/* database tokemon liar blm health(duarmon,D),asserta(tokemon(duarmon,D,_,_)) , dst */

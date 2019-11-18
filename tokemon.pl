@@ -1,3 +1,6 @@
+:- dynamic(tokenemy/1).
+
+
 /* nama(Tokemon) */
 nama(pikacrot). /* Tokemon Awal */
 nama(slowbro).
@@ -18,8 +21,27 @@ nama(gunturumon).
 nama(ekusupuromon).
 nama(megumon).
 
-legend(apimon).
-legend(airmon).
+/* legend(apimon).
+legend(airmon). */
+
+jenis(apimon,legend).
+jenis(airmon,legend).
+jenis(pikacrot,normal).
+jenis(slowbro,normal).
+jenis(charmaster,normal).
+jenis(squirtlel,normal).
+jenis(togemon,normal).
+jenis(elpijimon,normal).
+jenis(anumon,normal).
+jenis(tokedmon,normal).
+jenis(duarmon,normal).
+jenis(bebekmon,normal).
+jenis(terangmon,normal).
+jenis(gelapmon,normal).
+jenis(chidorimon,normal).
+jenis(gunturumon,normal).
+jenis(ekusupuromon,normal).
+jenis(megumon,normal).
 
 /* health(Tokemon,VHealth). */
 health(pikacrot,105). /* Tokemon Awal */
@@ -101,21 +123,21 @@ sattack(gunturumon,75).
 sattack(ekusupuromon,130).
 sattack(megumon,150).
 
-
-tokenemy(slowbro).
-tokenemy(charmaster).
-tokenemy(squirtlel).
-tokenemy(togemon).
-tokenemy(elpijimon).
-tokenemy(anumon).
-tokenemy(tokedmon).
-tokenemy(duarmon).
-tokenemy(bebekmon).
-tokenemy(apimon). /* Legendary */
-tokenemy(airmon). /* Legendary */
-tokenemy(terangmon).
-tokenemy(gelapmon).
-tokenemy(chidorimon).
-tokenemy(gunturumon).
-tokenemy(ekusupuromon).
-tokenemy(megumon).
+initEnemy :-
+	asserta(tokenemy(slowbro)),
+	asserta(tokenemy(charmaster)),
+	asserta(tokenemy(squirtlel)),
+	asserta(tokenemy(togemon)),
+	asserta(tokenemy(elpijimon)),
+	asserta(tokenemy(anumon)),
+	asserta(tokenemy(tokedmon)),
+	asserta(tokenemy(duarmon)),
+	asserta(tokenemy(bebekmon)),
+	asserta(tokenemy(apimon)),
+	asserta(tokenemy(airmon)),
+	asserta(tokenemy(terangmon)),
+	asserta(tokenemy(gelapmon)),
+	asserta(tokenemy(chidorimon)),
+	asserta(tokenemy(gunturumon)),
+	asserta(tokenemy(ekusupuromon)),
+	asserta(tokenemy(megumon)).

@@ -8,7 +8,7 @@ printStatusN([H|Tail]) :-
 printStatusL([]) :- !.
 printStatusL([H|Tail]) :-
 	write(H),nl,
-	write('Health: '),musuh(H,X,_,_),write(X),nl,
+	write('Health: '),musuh(H,X,_,_,_),write(X),nl,
 	write('Tipe: '),tipe(H,Y),write(Y),nl,nl,
 	printStatusL(Tail),!.
 
