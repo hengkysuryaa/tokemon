@@ -119,7 +119,7 @@ assertDrop(X) :-
 heal :-
 	isGym(0),write('Kamu tidak berada di gym!'),nl,!.
 heal :-
-	isGym(-1),write('Kamu sudah pernah memakai heal!'),nl,!.
+	isGym(-1),write('Kamu sudah pernah memakai heal dan/atau tidak berada di gym!'),nl,!.
 heal :- /* syarat bisa dipake saat di gym */
 	isGym(1),
 	forall(inventori(Tokemon,_),
