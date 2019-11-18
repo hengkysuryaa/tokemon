@@ -112,8 +112,10 @@ assertDrop(X) :-
 	(	
 		jenis(X,A),
 		health(X,H2),
-		assertz(musuh(X,H2,_,_,A))
+		randomCoordinate(C,D),
+		assertz(musuh(X,H2,C,D,A))
 	),!.
+
 
 /* asusmsi di gym harus pake heal */
 heal :-

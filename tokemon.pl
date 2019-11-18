@@ -126,18 +126,16 @@ sattack(megumon,150).
 initEnemy :-
 	asserta(tokenemy(slowbro)),
 	asserta(tokenemy(charmaster)),
-/*	asserta(tokenemy(squirtlel)), */
+	asserta(tokenemy(squirtlel)), 
 	asserta(tokenemy(togemon)),
 	asserta(tokenemy(elpijimon)),
 	asserta(tokenemy(anumon)),
-/*	asserta(tokenemy(tokedmon)),
+	asserta(tokenemy(tokedmon)),
 	asserta(tokenemy(duarmon)),
-	asserta(tokenemy(bebekmon)),
-	asserta(tokenemy(apimon)), */
-	asserta(tokenemy(airmon)).
-/*	asserta(tokenemy(terangmon)),
+	asserta(tokenemy(airmon)),
+	asserta(tokenemy(terangmon)),
 	asserta(tokenemy(gelapmon)),
 	asserta(tokenemy(chidorimon)),
 	asserta(tokenemy(gunturumon)),
 	asserta(tokenemy(ekusupuromon)),
-	asserta(tokenemy(megumon)). */
+	asserta(tokenemy(megumon)).

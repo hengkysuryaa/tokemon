@@ -67,13 +67,21 @@ copy(L,R) :- accCp(L,R).
 accCp([],[]).
 accCp([H|T1],[H|T2]) :- accCp(T1,T2).
 
+initLegend :- 
+	randomCoordinate(A,B),
+	health(apimon,H1),
+	jenis(apimon,J1),
+	asserta(musuh(apimon,H1,A,B,J1)),
+	randomCoordinate(C,D),
+	health(apimon,H2),
+	jenis(apimon,J2),
+	asserta(musuh(airmon,H2,C,D,J2)).
 
 
 initMusuh(0) :- !.
 initMusuh(N) :- 
 	randomCoordinate(X,Y),
 	findall(A,tokenemy(A),ListEnemy),
-	write(ListEnemy), 
 	listLength(ListEnemy,Len),
 	random(0,Len,Number),
 	getByIndex(ListEnemy, Number, B),
@@ -82,8 +90,10 @@ initMusuh(N) :-
 	jenis(B,T),
 	asserta(musuh(B,H,X,Y,T)),
 	write(X),write(' '),write(Y),write('   '),nl,
+	write(N),
 	N1 is N-1,
 	initMusuh(N1), !.
+
 
 checkPosition :- 
 	player(X,Y), musuh(_,_,A,B,_), X =:= A, Y =:= B, nl,

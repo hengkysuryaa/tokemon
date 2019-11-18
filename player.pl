@@ -58,7 +58,8 @@ awal :-
 	random(1,L,X),
 	random(1,T,Y),
 	initEnemy,
-	initMusuh(10),
+	initLegend,
+	initMusuh(15),
 	asserta(player(X,Y)),
 	asserta(isGym(0)),
 	asserta(useSattack(-1)), /* tiap pake diubah jadi 1 , kalo ganti tokemon pas battle reset ke 0 lagi */
