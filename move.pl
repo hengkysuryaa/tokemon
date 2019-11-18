@@ -5,35 +5,35 @@ w :- \+startGame(_),
 	write('Perintah hanya dapat dijalankan saat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-w :- utara,moveMusuh,checkPosition.
+w :- utara,moveMusuh,\+ checkPosition,posGym,map.
 
 a :- \+startGame(_),
 	write('Perintah hanya dapat dijalankan saat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-a :- barat,moveMusuh,checkPosition.
+a :- barat,moveMusuh,\+ checkPosition,posGym,map.
 
 s :- \+startGame(_),
 	write('Perintah hanya dapat dijalanaat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-s :- selatan,moveMusuh,checkPosition.
+s :- selatan,moveMusuh,\+ checkPosition,posGym,map.
 
 d :- \+startGame(_),
 	write('Perintah hanya dapat dijalankan saat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-d :- timur,moveMusuh,checkPosition.
+d :- timur,moveMusuh,\+ checkPosition,posGym,map.
 
 
 utara :- 
 	player(_,Y), Y =:= 1,
-	write('Tembok brooo!'),!.
-
+	write(' ##### Tembok brooo! #####'),nl,!.
+/*
 utara :- 
 	player(X,Y), Yi is Y-1, X =:= 8, Yi =:= 8,
 	write('Kamu berada di Gym !'),(isGym(0) -> isGym(1) ; isGym(-1)),!.
-
+*/
 utara :- 
 	retract(player(X,Y)),
 	Y > 1,
@@ -43,7 +43,7 @@ utara :-
 
 selatan :- 
 	player(_,Y), mapYLength(BatasBawah), Y =:= BatasBawah,
-	write('Tembok brooo!'),!.
+	write(' ##### Tembok brooo! #####'),nl,!.
 
 selatan :- 
 	retract(player(X,Y)),
@@ -54,7 +54,7 @@ selatan :-
 
 timur :- 
 	player(X,_), mapXLength(BatasSamping), X =:= BatasSamping,
-	write('Tembok brooo!'),!.
+	write(' ##### Tembok brooo! #####'),nl,!.
 
 timur :- 
 	retract(player(X,Y)),
@@ -65,7 +65,7 @@ timur :-
 
 barat :- 
 	player(X,_), X =:= 1,
-	write('Tembok brooo!'),!.
+	write(' ##### Tembok brooo! #####'),nl,!.
 
 barat :- 
 	retract(player(X,Y)),
@@ -74,13 +74,20 @@ barat :-
 	write([NewX,Y]),nl,
 	asserta(player(NewX,Y)),!.
 
+posGym :- player(X,Y), X =:= 8, Y =:= 8, isGym(0), retract(isGym(0)), asserta(isGym(1)).
+posGym :- player(X,_), X \= 8, isGym(1), retract(isGym(1)), asserta(isGym(-1)).
+posGym :- player(_,Y), Y \= 8, isGym(1), retract(isGym(1)), asserta(isGym(-1)).
+posGym :- player(_,_).
+
 moveMusuh :- 
 		findall(A,musuh(A,_,_,_,_),ListMusuh),
 		listLength(ListMusuh,Len),
 		forall(between(0,Len,I),(
 			getByIndex(ListMusuh,I,Nama),
 			randomMove(Nama)
-		)), ! .
+		)),!.
+
+moveMusuh :- !.
 
 
 randomMove(Nama) :- random(1,20,Pos),gerakbasedPos(Pos,Nama),!.
@@ -93,12 +100,6 @@ gerakbasedPos(Pos,Nama) :- Pos >= 15,Pos =< 20, baratMusuh(Nama).
 utaraMusuh(Nama) :- 
 	musuh(Nama,_,_,Y,_), Y =:= 1,
 	randomMove(Nama),!.
-
-/*
-utaraMusuh(Nama) :- 
-	musuh(Nama,_,X,Y,_), Yi is Y-1, player(X,Yi),
-	randomMove(Nama),!.
-*/
 
 utaraMusuh(Nama) :- 
 	musuh(Nama,_,X,Y,_), Yi is Y-1, X is 8, Yi is 8,
@@ -119,12 +120,6 @@ timurMusuh(Nama) :-
 	musuh(Nama,_,X,_,_), X =:= 15,
 	randomMove(Nama),!.
 
-/*
-timurMusuh(Nama) :- 
-	musuh(Nama,_,X,Y,_), Xi is X+1, player(Xi,Y),
-	randomMove(Nama),!.
-*/
-
 timurMusuh(Nama) :- 
 	musuh(Nama,_,X,Y,_), Xi is X+1, Xi is 8, Y is 8,
 	randomMove(Nama),!.
@@ -144,12 +139,6 @@ selatanMusuh(Nama) :-
 	musuh(Nama,_,_,Y,_), Y =:= 15,
 	randomMove(Nama),!.
 
-/*
-selatanMusuh(Nama) :- 
-	musuh(Nama,_,X,Y,_), Yi is Y+1, player(X,Yi),
-	randomMove(Nama),!.
-*/
-
 selatanMusuh(Nama) :- 
 	musuh(Nama,_,X,Y,_), Yi is Y+1, X is 8, Yi is 8,
 	randomMove(Nama),!.
@@ -168,11 +157,6 @@ selatanMusuh(Nama) :-
 baratMusuh(Nama) :- 
 	musuh(Nama,_,X,_,_), X =:= 1,
 	randomMove(Nama),!.
-/*
-baratMusuh(Nama) :- 
-	musuh(Nama,_,X,Y,_), Xi is X-1, player(Xi,Y),
-	randomMove(Nama),!.
-*/
 
 baratMusuh(Nama) :- 
 	musuh(Nama,_,X,Y,_), Xi is X-1, Xi is 8, Y is 8,

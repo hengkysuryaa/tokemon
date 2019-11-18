@@ -14,16 +14,15 @@ playerCoordinate(X,Y)	:- player(X,Y), ! .
 enemyCoordinate(X,Y)    :- musuh(_,_,X,Y,_), !.
 gymCoordinate(X,Y)		:- X is 8, Y is 8, !.
 
-
 printPixel(X,Y) :- borderKanan(X,Y), borderAtas(X,Y), ! , write('XX').
 printPixel(X,Y) :- borderKanan(X,Y), borderBawah(X,Y) , ! , write('XX').
 printPixel(X,Y) :- borderKanan(X,Y) , ! , write(' X').
 printPixel(X,Y) :- borderKiri(X,Y) , ! , write(' X').
 printPixel(X,Y) :- borderAtas(X,Y) , ! , write('XX').
 printPixel(X,Y) :- borderBawah(X,Y) , ! , write('XX').
+printPixel(X,Y) :- gymCoordinate(X,Y), ! , write(' G').  
 printPixel(X,Y) :- playerCoordinate(X,Y), ! , write(' P').
 printPixel(X,Y) :- enemyCoordinate(X,Y), ! , write(' E').
-printPixel(X,Y) :- gymCoordinate(X,Y), ! , write(' G').  
 printPixel(_,_) :- write(' -').
 
 
@@ -53,6 +52,7 @@ listLength([_|Tail], Count):-
 randomCoordinate(X,Y) :- 
 	random(1,225,C), A is ((C mod 225) + 1),
 	X is (A div 15) + 1, setCoor(A,Y), !.
+
 setCoor(A,Y) :-  A =:= 15, Y is A.
 setCoor(A,Y) :-  Y is ((A mod 15) + 1).
 
@@ -80,7 +80,7 @@ initMusuh(N) :-
 	write(B),nl,
 	health(B,H), 
 	jenis(B,T),
-	asserta(musuh(B,H,X,Y,aaaaaaaa)),
+	asserta(musuh(B,H,X,Y,T)),
 	write(X),write(' '),write(Y),write('   '),nl,
 	N1 is N-1,
 	initMusuh(N1), !.
@@ -89,3 +89,5 @@ checkPosition :-
 	player(X,Y), musuh(_,_,A,B,_), X =:= A, Y =:= B, nl,
 	write('A wild Tokemon appears!'),nl,
 	write('Fight or Run?'),nl,!.
+
+
