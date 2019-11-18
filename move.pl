@@ -5,26 +5,41 @@ w :- \+startGame(_),
 	write('Perintah hanya dapat dijalankan saat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-w :- utara,moveMusuh,\+ checkPosition,posGym,map.
+w :- isBattle(0),isFight(0),utara,moveMusuh,\+ checkPosition,posGym,map,!.
+
+w :- isBattle(1),write('Kamu sedang dalam pertarungaan!'),!.
+
+w :- isFight(1),write('Kamu sedang dalam pertarungaan!'),!.
 
 a :- \+startGame(_),
 	write('Perintah hanya dapat dijalankan saat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-a :- barat,moveMusuh,\+ checkPosition,posGym,map.
+a :- isBattle(0),isFight(0),barat,moveMusuh,\+ checkPosition,posGym,map,!.
+
+a :- isBattle(1),write('Kamu sedang dalam pertarungaan!'),!.
+
+a :- isFight(1),write('Kamu sedang dalam pertarungaan!'),!.
 
 s :- \+startGame(_),
 	write('Perintah hanya dapat dijalanaat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-s :- selatan,moveMusuh,\+ checkPosition,posGym,map.
+s :- isBattle(0),isFight(0),selatan,moveMusuh,\+ checkPosition,posGym,map,!.
+
+s :- isBattle(1),write('Kamu sedang dalam pertarungaan!'),!.
+
+s :- isFight(1),write('Kamu sedang dalam pertarungaan!'),!.
 
 d :- \+startGame(_),
 	write('Perintah hanya dapat dijalankan saat permainan telah dimulai!'),nl,
 	write('Mulai permainan terlebih dahulu : start.'),nl,!.
 
-d :- timur,moveMusuh,\+ checkPosition,posGym,map.
+d :- isBattle(0),isFight(0),timur,moveMusuh,\+ checkPosition,posGym,map,!.
 
+d :- isBattle(1),write('Kamu sedang dalam pertarungaan!'),!.
+
+d :- isFight(1),write('Kamu sedang dalam pertarungaan!'),!.
 
 utara :- 
 	player(_,Y), Y =:= 1,

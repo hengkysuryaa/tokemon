@@ -26,8 +26,6 @@ resetAllVar :-
 pick(X) :-
 	\+inventori(X,_),write('You dont have '),write(X),!.
 
-pick(X) :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
-
 pick(X) :- 
     retract(useSattack(-1)),asserta(useSattack(0)),
     inventori(X,A),asserta(myName(X)),asserta(myHealth(A)),
@@ -42,18 +40,18 @@ pick(X) :-
 	nattack(Musuh,P),asserta(enemyAttack(P)),
 	tipe(Musuh,Q),asserta(enemyType(Q)),
     health(Musuh,R),asserta(enemyHealth(R)),
-	show,optAttack,!.
+	show,optAttack(X,Musuh),!.
+
+pick(_) :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
 
 run :- isBattle(1),isFight(1),write('Kamu tidak bisa lari'),!.
-
-run :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
 
 run :- 
 	isBattle(1),isFight(0),
 	random(1,10,X),random(1,2,Y),
 	(
 		(
-			X \== Y,
+			X =:= Y,
 			write('You failed to run! Choose your Tokemon!'),nl,nl,
 			retract(isFight(0)),asserta(isFight(1)),
 			fight
@@ -65,7 +63,7 @@ run :-
 		)
 	),!.
 
-fight :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
+run :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
 
 fight :-
 	retract(isFight(0)),asserta(isFight(1)),
@@ -74,12 +72,14 @@ fight :-
 	A = Nama, asserta(enemyName(A)),
 	write('Pilih tokemonmu! (pick(nama tokemon).)'),!.
 
+fight :- \+isBattle(1),write('Kamu tidak dalam pertarungan'),!.
+
 /* Buat nama sama tipe tokemon yang dilawan belum */
 
-optAttack :-
+optAttack(X,Y) :-
 	write('Pilih serangan tokemonmu!'),nl,
     write('Normal  : '),myAttack(A),write(A),write(' -> '),modifier(X,Y),myAttack(C),write(C),write(' (attack.)'),nl,
-	write('Special : '),mySAttack(B),write(B),write(' -> '),modifierS(Z),mySAttack(D),write(D),write(' (sattack.)'),!.
+	write('Special : '),mySAttack(B),write(B),write(' -> '),modifierS(X),mySAttack(D),write(D),write(' (sattack.)'),!.
     
 /* nilai myattack dan enemyattack pake modifier dl */
 myAttack :-
@@ -115,7 +115,7 @@ enemyAttack:-
 				kalahBattle
 			);
 			(
-				show,optAttack
+				show,optAttack(Y,X)
 			)
 		),!. 
 
@@ -157,7 +157,7 @@ sattack :-
 			menangBattle
 		);
 		(
-			show,optAttack
+			show,optAttack(X,Y)
 		)
 	),!. 
 

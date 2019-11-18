@@ -24,12 +24,15 @@ quit :-
 	retract(nbLegend(_)),
 	retract(isGym(_)),
 	retract(useSattack(_)),
-	resetAllVar,
+	
 	retract(mapXLength(_)),
 	retract(mapYLength(_)),
 	retract(tokenemy(_)),
+	retractMusuh,
 	retract(startGame(_)),!.
+	/* resetAllVar,!. */
 	/* retractTokemon, retractMusuh, retractInventori, retractPlayer,!. implementasi nanti kalo udh fix */
+quit :- !.
 
 retractInventori :-
 	\+inventori(_,_),!.

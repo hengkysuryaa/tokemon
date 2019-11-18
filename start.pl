@@ -101,6 +101,7 @@ capture :-
 	invCount(6),write('Inventorimu penuh! drop/0 untuk melepas tokemonmu'),nl,!.
 capture :- 
 	enemyName(X),
+	write(X),write(' telah berhasil ditangkap!'),nl,
 	retractCap(X),
 	health(X,H),asserta(inventori(X,H)),
 	countInvCap(X),
