@@ -43,7 +43,7 @@ pick(X) :-
 	show,!.
 
 run :-
-	\+isRun(1), write('Kamu sudah lari dari tokemon itu'),!.
+	\+isRun(1), write('Kamu sudah lari dari tokemon itu atau sedang melawan tokemon itu'),!.
 
 run :- 
 	isRun(1),
@@ -52,7 +52,6 @@ run :-
 		(
 			X =:= Y,
 			write('You failed to run! Choose your Tokemon!'),nl,nl,
-			retract(isRun(1)), asserta(isRun(0)),
 			fight
 
 		);
@@ -64,7 +63,7 @@ run :-
 
 fight :-
     statusToke,
-	retract(isBattle(0)),asserta(isBattle(1)),
+	retract(isRun(1)), asserta(isRun(0)),
 	player(X,Y),musuh(Nama,_,X,Y,_),
 	A = Nama, asserta(enemyName(A)),!.
 
