@@ -182,9 +182,12 @@ menang :-
 
 kalah :-
 	(
+		invCount(X), X =:= 0,
 		asserta(isWin(0)),
 		write('Kamu kalah dlm game ini')
 	),!.
+
+kalah :- !.
 
 kalahBattle :-
 
