@@ -53,6 +53,7 @@ awal :-
 	L is 15,
 	T is 15,
 	asserta(startGame(1)),
+	asserta(isBattle(0)),
 	random(1,L,X),
 	random(1,T,Y),
 	initEnemy,
